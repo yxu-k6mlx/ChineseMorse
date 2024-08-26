@@ -61,13 +61,17 @@ itu_morse = [
     ('<WAIT>', '.-...'), 
     ('<SIGNOUT>', '...-.-'), 
     ('<EOM>', '.-.-.'), 
-    ('<START>', '-.-.-')
+    ('<START>', '-.-.-'), 
+    # Space
+    (' ', '_'), 
+    # Non-ITU but acceptable
+    ('!', '-.-.--')
 ]
 
 itu_pace = [
-    ('<SIG_BREAK>', '_'), 
-    ('<CHAR_BREAK>', '___'), 
-    ('<WORD_BREAK>', '_______'), 
+    ('<SIG_BREAK>', '/'), 
+    ('<CHAR_BREAK>', '///'), 
+    ('<WORD_BREAK>', '///////'), 
 ]
 
 """
@@ -76,17 +80,27 @@ Letter breaks are added by default
 
 Params: 
     string char - A single character or special code to be translated
-    bool add_break - option to add '_' between letters
+    bool add_break - option to add '/' between letters
 Returns: morse
 """
 def latin_to_morse(char, add_break=True) -> str: 
     char = char.capitalize() 
     for latin, morse in itu_morse: 
         if latin == char: 
-            return f'{morse}___'
+            if add_break: 
+                return f'{morse}/'
+            else: 
+                return f'{morse}'
 
 """
 Transforms a single character or special code in morse to letter
 No spaces are inserted here
-
 """
+def morse_to_latin(morse, add_space=False) -> str: 
+    for latin, target in itu_morse: 
+        if morse == target: 
+            if add_space: 
+                return f'{latin} '
+            else: 
+                return latin
+            
