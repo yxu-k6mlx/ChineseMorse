@@ -62,6 +62,7 @@ itu_morse = [
     ('<SIGNOUT>', '...-.-'), 
     ('<EOM>', '.-.-.'), 
     ('<START>', '-.-.-'), 
+    ('\n', '///'), 
     # Space
     (' ', '_'), 
     # Non-ITU but acceptable

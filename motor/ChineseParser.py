@@ -1,6 +1,6 @@
 import csv 
 import io
-import MorseParser as LatinParser
+import MorseParser as Parser
 
 def char_to_num(letter, standard) -> str:
     counter=0 
@@ -31,15 +31,24 @@ def char_to_num(letter, standard) -> str:
                 return code
         return None
     
-def hanzi_parser(in_string, standard): 
+def text_to_morse(in_string, standard): 
     out_str = ''
+    counter = 0
     for element in in_string: 
         code = char_to_num(element, standard)
         if code is not None: 
-            out_str += LatinParser.latin_to_morse(code, add_slash=True) + '/'
+            # is hanzi
+            out_str += '{' + Parser.latin_to_morse(code, add_slash=True) + '}'
         else: 
-            code = LatinParser.latin_to_morse(element, add_slash=True)
-            if code is not None: 
-                out_str += code 
-
+            # is alpha numeric
+            code = Parser.latin_to_morse(element, add_slash=True)
+            out_str += code
+    print(f'Your morse is {out_str}')
+    counter = 0
     return out_str
+
+def morse_to_text(in_string, standard): 
+    raw_string = Parser.morse_to_latin(in_string, add_slash=True)
+    print(raw_string)
+
+morse_to_text(text_to_morse('hello world! 你好世界! ', standard='T'), standard='T')
