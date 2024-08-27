@@ -43,7 +43,3 @@ def hanzi_parser(in_string, standard):
                 out_str += code 
 
     return out_str
-
-print(
-    'Your text in Morse is ' + hanzi_parser('你好世界awer', 'T')
-)
