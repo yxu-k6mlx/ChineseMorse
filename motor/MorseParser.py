@@ -1,15 +1,13 @@
-import MorseDict as Lookup
-import codecs
-import math
+import motor.MorseDict as Lookup
 
-def latin_to_morse(input_string, add_slash=True) -> str: 
+def latin_to_morse(input_string, add_slash=True, v_mode=False) -> str: 
     output_string = ''
     for char in input_string: 
-        output_string = output_string + Lookup.latin_to_morse(char, add_break=add_slash)
+        output_string = output_string + Lookup.latin_to_morse(char, add_break=False) + '/'
 
     return output_string
 
-def morse_to_latin(input_morse, add_slash=False) -> str:
+def morse_to_latin(input_morse, has_brackets=False, v_mode=False) -> str:
     #print(f'add slash={add_slash}')
     output_string = ''
     codes = []
@@ -22,18 +20,18 @@ def morse_to_latin(input_morse, add_slash=False) -> str:
             
             read_head += 1
             last_slash = read_head
+            
         else: 
             read_head += 1
     
-    #print(codes)
+    if v_mode: print(f'MP-M2L: {codes}')
     
-    num_counter = 0
     for code in codes: 
         #print(f'counter={num_counter}')
         holder = Lookup.morse_to_latin(code)
         
         if holder is not None: 
-            output_string += holder 
+            output_string += holder
         else: 
             output_string += ''
     

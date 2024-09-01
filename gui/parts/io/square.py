@@ -14,7 +14,7 @@ class Square(tk.Frame):
         self.text = text 
         self._w = tk.Button(
             root, 
-            width=5, height=5, 
+            width=20, height=4, 
             text=text, 
             borderwidth=1, 
             highlightthickness=0, 
