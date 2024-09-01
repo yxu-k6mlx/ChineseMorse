@@ -1,13 +1,17 @@
 import csv 
 import io
 import motor.MorseParser as Parser
+import platform
 
 def char_to_num(letter, standard, v_mode=False) -> str:
     counter=0 
     #print(f'Char: {letter}, std: {standard}')
     if standard == 'T': 
         # traditional standard
-        raw_file = io.open(r'ChineseMorse\csv\twtelegraph.csv', mode='r') 
+        if platform.system == 'Windows': 
+            raw_file = io.open(r'ChineseMorse\csv\twtelegraph.csv', mode='r') 
+        else:
+            raw_file = io.open('ChineseMorse/csv/twtelegraph.csv', mode='r')
         trad_codes = csv.reader(raw_file)
         for raw_char, code in trad_codes: 
             char = bytes(raw_char, "ascii").decode("unicode-escape")
@@ -19,7 +23,10 @@ def char_to_num(letter, standard, v_mode=False) -> str:
             
     elif standard == 'S': 
         # mainlander standard
-        raw_file = io.open(r'ChineseMorse\csv\cntelegraph.csv', mode='r') 
+        if platform.system == 'Windows': 
+            raw_file = io.open(r'ChineseMorse\csv\cntelegraph.csv', mode='r') 
+        else: 
+            raw_file = io.open('ChineseMorse/csv/cntelegraph.csv', mode='r')
         simp_codes = csv.reader(raw_file)
         for raw_char, code in simp_codes: 
             char = bytes(raw_char, "ascii").decode("unicode-escape")
