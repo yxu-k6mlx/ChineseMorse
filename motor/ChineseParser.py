@@ -14,7 +14,7 @@ def char_to_num(letter, standard, v_mode=False) -> str:
             raw_file = io.open('ChineseMorse/csv/twtelegraph.csv', mode='r')
         trad_codes = csv.reader(raw_file)
         for raw_char, code in trad_codes: 
-            char = bytes(raw_char, "ascii").decode("unicode-escape")
+            char = bytes(raw_char, "ascii").decode('unicode-escape')
             if letter == char: 
                 if v_mode: print(f'CP-C2N/T: Match found for {letter} at {code}')
                 code = '<' + code +'>'
@@ -29,7 +29,7 @@ def char_to_num(letter, standard, v_mode=False) -> str:
             raw_file = io.open('ChineseMorse/csv/cntelegraph.csv', mode='r')
         simp_codes = csv.reader(raw_file)
         for raw_char, code in simp_codes: 
-            char = bytes(raw_char, "ascii").decode("unicode-escape")
+            char = bytes(raw_char, "ascii").decode('unicode-escape')
             if letter == char: 
                 if v_mode: print(f'CP-C2N/S: Match found for {letter} at {code}')
                 code = '<' + code +'>'
@@ -77,7 +77,7 @@ def num_to_char(nums, standard='T', v_mode=False):
 
     return hanzi
 
-def morse_to_text(in_string, standard='T', v_mode=False): 
+def morse_to_text(in_string, standard='T', v_mode=False, disp_telecode=False): 
     raw_string = Parser.morse_to_latin(in_string, has_brackets=True, v_mode=v_mode)
     if v_mode: print(f'CP-M2T: {raw_string}')
     left_limit = 0
@@ -85,6 +85,7 @@ def morse_to_text(in_string, standard='T', v_mode=False):
     hanzi_num = ''
     text = ''
     is_hanzi = False
+    hanzi_codes = ''
     for char in raw_string: 
         if v_mode: print(f'CP-M2T: char = {char}')
         
@@ -101,6 +102,8 @@ def morse_to_text(in_string, standard='T', v_mode=False):
             if v_mode: print(f'CP-M2T: Unicode = {unicode_holder}')
             text += unicode_holder
             if v_mode: print(f'CP-M2T: text = {text}')
+
+            hanzi_codes += unicode_holder + ' - <' + hanzi_num + '>\n'
             hanzi_num = ''
             left_limit = 0
             current_index += 1
@@ -110,9 +113,13 @@ def morse_to_text(in_string, standard='T', v_mode=False):
             if not is_hanzi: text += char
             current_index += 1
 
-    text = bytes(text, "ascii").decode("unicode-escape")
+    text = bytes(text, "ascii").decode('unicode-escape')
     if v_mode: 
         print(f'CP-M2T: Text found: {text}')
+    if disp_telecode: 
+        hanzi_codes = bytes(hanzi_codes, 'ascii').decode('unicode-escape')
+        print(f'All Hanzi found and their telecodes: ')
+        print(hanzi_codes)
     return text
 
 #morse_to_text(text_to_morse('hello world! 你好世界! ', standard='T'), standard='T')
