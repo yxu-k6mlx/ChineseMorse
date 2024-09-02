@@ -21,27 +21,43 @@ if __name__ == '__main__':
                         description='\
                             Hanzi <- Telegraph Code -> Morse\n\
                             (中文)漢字 <-- 商碼 --> 電報碼',
-                        formatter_class=argparse.RawDescriptionHelpFormatter,
-                        epilog='A program by K6MLX.\n由K6MLX開發製作.')
+                        formatter_class=argparse.RawTextHelpFormatter,
+                        epilog='A program by K6MLX.\n由K6MLX開發製作.',
+                        add_help=False
+                        )
     
+    shinter.add_argument(
+        '-h', 
+        '--help', 
+        action='help', 
+        help='show this help message and exit\n显示本指南后结束程序'
+    )
+
     shinter.add_argument(
         '-v', 
         '--verbose', 
         action='store_true',
         dest='verbose', 
-        help='Run HanziMorse in verbose mode. 使用話癆模式.'
+        help='run in verbose mode\n使用話癆模式'
     )
 
     shinter.add_argument(
         '-l', 
         '--load', 
-        dest='load_file'
+        action='store',
+        nargs=1,
+        dest='loadname', 
+        help=f'load input from a file\n由文件导入'
     )
 
     shinter.add_argument(
         '-s', 
         '--standard', 
-        dest='standard'
+        action='store',
+        nargs = 1, 
+        dest='standard', 
+        default='T',
+        help=f'specify a standard to use\n選擇一種字型\nuse \'T\' for Traditional Chinese\n輸入\'T\'使用繁體字\nuse \'S\' for Simplified Chinese\n輸入\'S\'使用簡體字\ndefault: T\n默認使用繁體字'
     )
 
     shinter.add_argument(
@@ -51,9 +67,7 @@ if __name__ == '__main__':
     )
 
     shinter.print_help()
-    app = shinter.parse_args(['-l test'])
-
-    print(app.load_file[1:])
+    app = shinter.parse_args()
     
 """
     text = 'hello world! 你好世界! 114514 word'
