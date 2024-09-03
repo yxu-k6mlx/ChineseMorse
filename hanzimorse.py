@@ -74,23 +74,22 @@ if __name__ == '__main__':
         help=f'manually feed a string of formatted morse code (INPUT_MORSE)->Text\n手動輸入電碼字符串(INPUT_MORSE)->明文'
     )
 
-    shinter.print_help()
     app = shinter.parse_args()
-    inputstr = ''
-    inputmorse = ''
+    inputstr = u''
+    inputmorse = u''
     # Text -> Morse
     if app.input_string and not app.input_morse: 
-        inputstr = app.input_string
-        if app.verbose: print(f'Your input: {inputstr}')
+        inputstr = app.input_string[0]
+        if app.verbose: print(f'T2M Your input: {inputstr}, standard {app.standard}')
         result = Parser.text_to_morse(inputstr, standard=app.standard, v_mode=app.verbose)
     # Morse -> Text
     elif app.input_morse and not app.input_string: 
-        inputmorse = app.input_morse
-        if app.verbose: print(f'Your input: {inputmorse}')
+        inputmorse = app.input_morse[0]
+        if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard}')
         result = Parser.morse_to_text(inputmorse, standard=app.standard, v_mode=app.verbose, disp_telecode=app.verbose)
     else: 
         sys.exit(1)
-    print(f'Translated string:\b轉譯后的字符串:\n{result}')
+    print(f'Translated string:\n轉譯后的字符串:\n{result}')
     
 """
     text = 'hello world! 你好世界! 114514 word'
