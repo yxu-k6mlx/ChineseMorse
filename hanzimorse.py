@@ -74,6 +74,13 @@ if __name__ == '__main__':
         help=f'manually feed a string of formatted morse code (INPUT_MORSE)->Text\n手動輸入電碼字符串(INPUT_MORSE)->明文'
     )
 
+    shinter.add_argument(
+        '--ready2send', 
+        action='store_true', 
+        dest='isReady', 
+        help=f'use this option if you want the output string formatted for https://morsecode.world/international/translator.html'
+    )
+
     app = shinter.parse_args()
     inputstr = u''
     inputmorse = u''
@@ -92,6 +99,14 @@ if __name__ == '__main__':
         shinter.print_help()
         sys.exit(1)
     print(f'Translated string:\n轉譯后的字符串:\n{result}')
+
+    if app.isReady: 
+        result = result.replace('/', ' ')
+        result = result.replace('_', '/')
+        result = result.replace('<', '/')
+        result = result.replace('>', '/')
+        result = result.replace(' / / ', '/')
+        print(f'Ready to Send String:\n{result}')
     
 """
     text = 'hello world! 你好世界! 114514 word'
