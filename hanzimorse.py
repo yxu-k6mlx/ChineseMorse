@@ -75,6 +75,8 @@ if __name__ == '__main__':
     )
 
     app = shinter.parse_args()
+    if app.input_string is None and app.input_morse is None: 
+        shinter.print_help()
     inputstr = u''
     inputmorse = u''
     # Text -> Morse
