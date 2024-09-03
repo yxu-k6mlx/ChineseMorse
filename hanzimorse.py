@@ -75,8 +75,6 @@ if __name__ == '__main__':
     )
 
     app = shinter.parse_args()
-    if app.input_string is None and app.input_morse is None: 
-        shinter.print_help()
     inputstr = u''
     inputmorse = u''
     # Text -> Morse
@@ -91,7 +89,7 @@ if __name__ == '__main__':
         if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard}')
         result = Parser.morse_to_text(inputmorse, standard=app.standard, v_mode=app.verbose, disp_telecode=app.verbose)
     else: 
-        sys.exit(1)
+        shinter.print_help()
     print(f'Translated string:\n轉譯后的字符串:\n{result}')
     
 """
