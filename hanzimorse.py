@@ -107,6 +107,7 @@ if __name__ == '__main__':
         result = result.replace('>', '/')
         result = result.replace(' / / ', '/')
         result = result.replace('//', '/')
+        result = result.replace(' / ', '/')
         print(f'Ready to Send String:\n{result}')
     
 """
