@@ -90,6 +90,7 @@ if __name__ == '__main__':
         result = Parser.morse_to_text(inputmorse, standard=app.standard, v_mode=app.verbose, disp_telecode=app.verbose)
     else: 
         shinter.print_help()
+        sys.exit(1)
     print(f'Translated string:\n轉譯后的字符串:\n{result}')
     
 """
