@@ -1,16 +1,11 @@
 import argparse
 import sys 
-from motor import ChineseParser as Parse
+from motor import ChineseParser as Parser
 
 print(sys.path[0])
 
-def set_verbose(foobar): 
-    print(f'\n\nVerbose ON {foobar}')
-    pass
-
 """
 Morse to Text 
-
 """
 def morse_to_text(input_string): 
     pass 
@@ -47,7 +42,7 @@ if __name__ == '__main__':
         action='store',
         nargs=1,
         dest='loadname', 
-        help=f'load input from a file\n由文件导入'
+        help=f'load input from a file path (LOADNAME)\n由文件路徑(LOADNAME)导入'
     )
 
     shinter.add_argument(
@@ -55,19 +50,47 @@ if __name__ == '__main__':
         '--standard', 
         action='store',
         nargs = 1, 
-        dest='standard', 
+        metavar='standard', 
+        choices=['T', 'S'], 
         default='T',
-        help=f'specify a standard to use\n選擇一種字型\nuse \'T\' for Traditional Chinese\n輸入\'T\'使用繁體字\nuse \'S\' for Simplified Chinese\n輸入\'S\'使用簡體字\ndefault: T\n默認使用繁體字'
+        help=f'specify a standard to use\n選擇一種字型(T-繁, S-簡)\ndefault: T\n默認使用繁體字 因爲繁體字庫涵蓋範圍更廣'
     )
 
     shinter.add_argument(
-        '-d', 
-        '--dir', 
-        dest='dir'
+        '-i', 
+        '--input', 
+        action='store', 
+        nargs=1, 
+        dest='input_string', 
+        help=f'manually feed a string of text (INPUT_STRING)->Morse Code\n手動輸入字符串(INPUT_STRING)->電碼'
+    )
+
+    shinter.add_argument(
+        '-m', 
+        '--morse', 
+        action='store', 
+        nargs=1, 
+        dest='input_morse', 
+        help=f'manually feed a string of formatted morse code (INPUT_MORSE)->Text\n手動輸入電碼字符串(INPUT_MORSE)->明文'
     )
 
     shinter.print_help()
     app = shinter.parse_args()
+    inputstr = ''
+    inputmorse = ''
+    # Text -> Morse
+    if app.input_string and not app.input_morse: 
+        inputstr = app.input_string
+        if app.verbose: print(f'Your input: {inputstr}')
+        result = Parser.text_to_morse(inputstr, standard=app.standard, v_mode=app.verbose)
+    # Morse -> Text
+    elif app.input_morse and not app.input_string: 
+        inputmorse = app.input_morse
+        if app.verbose: print(f'Your input: {inputmorse}')
+        result = Parser.morse_to_text(inputmorse, standard=app.standard, v_mode=app.verbose, disp_telecode=app.verbose)
+    else: 
+        sys.exit(1)
+    print(f'Translated string:\b轉譯后的字符串:\n{result}')
     
 """
     text = 'hello world! 你好世界! 114514 word'
