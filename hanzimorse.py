@@ -2,8 +2,6 @@ import argparse
 import sys 
 from motor import ChineseParser as Parser
 
-print(sys.path[0])
-
 END_COLOR = '\033[0m'
 
 def set_color_by_id(gnd, color_id): 
@@ -25,7 +23,7 @@ def set_color_by_rg(gnd, r, g, b):
 """
 Morse to Text 
 """
-
+print(f'{set_color_by_rg('fg', 255, 255, 120)}DEV: Current working directory: {sys.path[0]}{END_COLOR}')
 if __name__ == '__main__':
     shinter = argparse.ArgumentParser(
                         prog='hanzimorse',
