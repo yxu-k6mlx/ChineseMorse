@@ -3,7 +3,7 @@ import sys
 from motor import ChineseParser as Parser
 
 class ColorHelper: 
-    END_COLOR = '\033[0m'
+    ANSI_RESET = '\033[0m'
 
     def set_color_by_id(gnd, color_id): 
         outstr = '\033['
@@ -27,15 +27,15 @@ color = ColorHelper
 """
 Morse to Text
 """
-print(f'{color.set_color_by_rg('fg', 0, 0, 0)}{color.set_color_by_rg('bg', 255, 121, 0)}  DEV: Current working directory: {sys.path[0]}  {color.END_COLOR}')
+print(f'{color.set_color_by_rg('fg', 0, 0, 0)}{color.set_color_by_rg('bg', 255, 121, 0)}  DEV: Current working directory: {sys.path[0]}  {color.ANSI_RESET}')
 if __name__ == '__main__':
     shinter = argparse.ArgumentParser(
                         prog='hanzimorse',
                         description=f'\
                             {color.set_color_by_rg('fg', 0, 255, 173)}Hanzi <- Telegraph Code -> Morse\n\
-                            (中文)漢字 <-- 商碼 --> 電報碼{color.END_COLOR}',
+                            (中文)漢字 <-- 商碼 --> 電報碼{color.ANSI_RESET}',
                         formatter_class=argparse.RawTextHelpFormatter,
-                        epilog=f'{color.set_color_by_rg('fg', 0, 255, 173)}A program by K6MLX.\n由K6MLX開發製作.{color.END_COLOR}',
+                        epilog=f'{color.set_color_by_rg('fg', 0, 255, 173)}A program by K6MLX.\n由K6MLX開發製作.{color.ANSI_RESET}',
                         add_help=False
                         )
     
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         '-h', 
         '--help', 
         action='help', 
-        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}show this help message and exit\n显示本指南后结束程序{color.END_COLOR}'
+        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}show this help message and exit\n显示本指南后结束程序{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -51,7 +51,7 @@ if __name__ == '__main__':
         '--verbose', 
         action='store_true',
         dest='verbose', 
-        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}run in verbose mode\n使用話癆模式{color.END_COLOR}'
+        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}run in verbose mode\n使用話癆模式{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         action='store',
         nargs=1,
         dest='loadname', 
-        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}load input from a file path (LOADNAME)\n由文件路徑(LOADNAME)导入{color.END_COLOR}'
+        help=f'{color.set_color_by_rg('fg', 255, 255, 0)}load input from a file path (LOADNAME)\n由文件路徑(LOADNAME)导入{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -75,7 +75,7 @@ if __name__ == '__main__':
             specify a standard to use\n\
             選擇一種字型(T-繁, S-簡)\n\
             default: T\n\
-            默認使用繁體字 因爲繁體字庫涵蓋範圍更廣{color.END_COLOR}'
+            默認使用繁體字 因爲繁體字庫涵蓋範圍更廣{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -86,7 +86,7 @@ if __name__ == '__main__':
         dest='input_string', 
         help=f'{color.set_color_by_rg('fg', 255, 255, 0)}\
             manually feed a string of text (INPUT_STRING)->Morse Code\n\
-            手動輸入字符串(INPUT_STRING)->電碼{color.END_COLOR}'
+            手動輸入字符串(INPUT_STRING)->電碼{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -97,7 +97,7 @@ if __name__ == '__main__':
         dest='input_morse', 
         help=f'{color.set_color_by_rg('fg', 255, 255, 0)}\
             manually feed a string of formatted morse code (INPUT_MORSE)->Text\n\
-            手動輸入電碼字符串(INPUT_MORSE)->明文{color.END_COLOR}'
+            手動輸入電碼字符串(INPUT_MORSE)->明文{color.ANSI_RESET}'
     )
 
     shinter.add_argument(
@@ -105,8 +105,8 @@ if __name__ == '__main__':
         action='store_true', 
         dest='isReady', 
         help=f'{color.set_color_by_rg('fg', 255, 255, 0)}\
-            use this option if you want the output string formatted for {color.END_COLOR}\n\
-            {color.set_color_by_rg('fg', 0, 255, 255)}https://morsecode.world/international/translator.html{color.END_COLOR}'
+            use this option if you want the output string formatted for {color.ANSI_RESET}\n\
+            {color.set_color_by_rg('fg', 0, 255, 255)}https://morsecode.world/international/translator.html{color.ANSI_RESET}'
     )
 
     app = shinter.parse_args()
