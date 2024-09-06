@@ -1,7 +1,7 @@
 
 class stylize: 
     def __init__(self, order, **kwargs) -> None:
-        # 
+        #
         pass
 
 string = '\
@@ -24,4 +24,8 @@ print('class')
 a = stylize('order')
 print(string)
 
-
+print('effect tests: \n')
+for i in range (0, 100): 
+    print(f'Now testing {i}')
+    ts = f'\033[0m\033[{i}m{string}'
+    print(ts)
