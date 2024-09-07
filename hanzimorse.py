@@ -68,7 +68,7 @@ if __name__ == '__main__':
         '--standard', 
         action='store',
         nargs = 1, 
-        metavar='standard', 
+        dest='standard', 
         choices=['T', 'S'], 
         default='T',
         help=f'{color.set_color_by_rg('fg', 255, 255, 0)}\
@@ -117,12 +117,12 @@ if __name__ == '__main__':
         inputstr = app.input_string[0]
         if app.verbose: print(f'T2M Your input: {inputstr}, standard {app.standard}')
         print(f'Output format 輸出格式: a/s/c/i/i/</中/文/數/字/碼/>/')
-        result = Parser.text_to_morse(inputstr, standard=app.standard, v_mode=app.verbose)
+        result = Parser.text_to_morse(inputstr, standard=app.standard[0], v_mode=app.verbose)
     # Morse -> Text
     elif app.input_morse and not app.input_string: 
         inputmorse = app.input_morse[0]
         if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard}')
-        result = Parser.morse_to_text(inputmorse, standard=app.standard, v_mode=app.verbose, disp_telecode=app.verbose)
+        result = Parser.morse_to_text(inputmorse, standard=app.standard[0], v_mode=app.verbose, disp_telecode=app.verbose)
     else: 
         shinter.print_help()
         sys.exit(1)
