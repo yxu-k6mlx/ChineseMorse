@@ -40,14 +40,31 @@ def text_to_morse(in_string, standard, v_mode=False):
     out_str = ''
     
     for element in in_string: 
+        # try to find a match 
         code = char_to_num(element, standard, v_mode=v_mode)
-        if code is not None: 
-            # is hanzi
+        if code is None: 
+            if v_mode: print(f'CP-T2M: Tried to match {element} to {code}, but no code found! ')
+            # no codes found on hanzi dict
+            if element: 
+                # is alpha-numeric 
+                # get classic morse
+                if v_mode: print(f'CP-T2M: {element} is ASCII, send to Latin2Morse direct. ')
+                out_str += Parser.latin_to_morse(element, add_slash=True, v_mode=v_mode)
+            else: # is not alnum and no code found 
+                # try and see if the other standard covered this hanzi
+                if standard == 'T': 
+                    trycode = char_to_num(element, standard='S', v_mode=v_mode)
+                    if v_mode: print(f'CP-T2M: Found {element} - {trycode} in Traditional Hanzi Dict')
+                elif standard == 'S': 
+                    trycode = char_to_num(element, standard='T', v_mode=v_mode)
+                    if v_mode: print(f'CP:T2M: Found {element} - {trycode} in Simplified Hanzi Dict')
+                # if covered, add to out_str
+                if trycode is not None: 
+                    out_str += trycode 
+        else:  
+            # is hanzi with code
+            if v_mode: print(f'CP-T2M: Matched {element} to {code}')
             out_str += Parser.latin_to_morse(code, add_slash=True, v_mode=v_mode)
-        else: 
-            # is alpha numeric
-            code = Parser.latin_to_morse(element, add_slash=True, v_mode=v_mode)
-            out_str += code
     if v_mode: print(f'CP-T2M: Your morse is {out_str}')
     
     return out_str

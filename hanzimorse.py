@@ -115,13 +115,13 @@ if __name__ == '__main__':
     # Text -> Morse
     if app.input_string and not app.input_morse: 
         inputstr = app.input_string[0]
-        if app.verbose: print(f'T2M Your input: {inputstr}, standard {app.standard}')
+        if app.verbose: print(f'T2M Your input: {inputstr}, standard {app.standard[0]}')
         print(f'Output format 輸出格式: a/s/c/i/i/</中/文/數/字/碼/>/')
         result = Parser.text_to_morse(inputstr, standard=app.standard[0], v_mode=app.verbose)
     # Morse -> Text
     elif app.input_morse and not app.input_string: 
         inputmorse = app.input_morse[0]
-        if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard}')
+        if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard[0]}')
         result = Parser.morse_to_text(inputmorse, standard=app.standard[0], v_mode=app.verbose, disp_telecode=app.verbose)
     else: 
         shinter.print_help()
