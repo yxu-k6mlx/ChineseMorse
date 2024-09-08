@@ -1,7 +1,6 @@
-
 class stylize: 
     def __init__(self, order, **kwargs) -> None:
-        #
+        
         pass
 
 string = '\
@@ -29,3 +28,4 @@ for i in range (0, 100):
     print(f'Now testing {i}')
     ts = f'\033[0m\033[{i}m{string}'
     print(ts)
+
