@@ -17,7 +17,7 @@ def char_to_num(letter, standard, v_mode=False) -> str:
             char = bytes(raw_char, "ascii").decode('unicode-escape')
             if letter == char: 
                 if v_mode: print(f'CP-C2N/T: Match found for {letter} at {code}')
-                code = '<' + code +'>'
+                code = '{' + code + '}'
                 return code
         return None
             
@@ -32,7 +32,7 @@ def char_to_num(letter, standard, v_mode=False) -> str:
             char = bytes(raw_char, "ascii").decode('unicode-escape')
             if letter == char: 
                 if v_mode: print(f'CP-C2N/S: Match found for {letter} at {code}')
-                code = '<' + code +'>'
+                code = '{' + code + '}'
                 return code
         return None
     
@@ -57,10 +57,12 @@ def text_to_morse(in_string, standard, v_mode=False, separator=' '):
                 # try and see if there is a match in the other std
                 if zh_std == 'T': 
                     zh_code = char_to_num(element, standard='S', v_mode=v_mode)
-                    if zh_code is not None: out_str += zh_code + separator
+                    if zh_code is not None: out_str += text_to_morse(zh_code, standard=None, v_mode=v_mode) + separator
                     else: out_str += '\ufffd'
                 elif zh_std == 'S': 
-                    pass 
+                    zh_code = char_to_num(element, standard='T', v_mode=v_mode)
+                    if zh_code is not None: out_str += text_to_morse(zh_code, standard=None, v_mode=v_mode) + separator
+                    else: out_str += '\ufffd'
                 else: 
                     if v_mode: print(f'CP-T2M: {element} is not a known Hanzi nor valid ASCII for Morse!')
     return out_str
@@ -102,12 +104,12 @@ def morse_to_text(in_string, standard='T', v_mode=False, disp_telecode=False):
     for char in raw_string: 
         if v_mode: print(f'CP-M2T: char = {char}')
         
-        if char == '<' and raw_string[current_index+1].isnumeric: 
+        if char == '{' and raw_string[current_index+1].isnumeric: 
             if v_mode: print(f'CP-M2T: Found \'<\' at {current_index}')
             left_limit = current_index + 1
             current_index += 1
             is_hanzi = True
-        elif char == '>': 
+        elif char == '}': 
             if v_mode: print(f'CP-M2T: Found \'>\' at {current_index}')
             hanzi_num += (raw_string[left_limit:current_index])
             if v_mode: print(f'CP-M2T: Hanzi Num is {hanzi_num}, sent to num2char')

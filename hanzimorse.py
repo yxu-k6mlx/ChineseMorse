@@ -129,13 +129,8 @@ if __name__ == '__main__':
     print(f'Translated string:\n轉譯后的字符串:\n{result}')
 
     if app.isReady: 
-        result = result.replace('/', ' ')
-        result = result.replace('_', '/')
-        result = result.replace('<', '/')
-        result = result.replace('>', '/')
-        result = result.replace(' / / ', '/')
-        result = result.replace('//', '/')
-        result = result.replace(' / ', '/')
-        result = result.replace('/ ', '/')
+        result = result.replace('\uFFFD', '')
+        result = result.replace('{', '')
+        result = result.replace('}', '')
         print(f'Ready to Send String:\n{result}')
-    
+
