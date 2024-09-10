@@ -36,24 +36,29 @@ def char_to_num(letter, standard, v_mode=False) -> str:
                 return code
         return None
     
-def text_to_morse(in_string, standard, v_mode=False): 
+def text_to_morse(in_string, standard, v_mode=False, separator=' '): 
     out_str = ''
     for element in in_string: 
-        std_morse = Parser.latin_to_morse(element, add_slash=True, v_mode=v_mode) 
+        std_morse = Parser.latin_to_morse(element, add_slash=False, v_mode=v_mode) 
         # L2M found a valid match
         if std_morse is not None: 
             if v_mode: print(f'CP-T2M: Given \'{element}\' found matching morse \'{std_morse}\'')
-            out_str += std_morse
+            out_str += std_morse + separator
         # L2M did not find a valid match 
         else: 
             zh_std = standard
             zh_code = char_to_num(element, standard=standard, v_mode=v_mode)
+            # there is a match within given std
             if zh_code is not None: 
                 if v_mode: print(f'CP-T2M: Given hanzi \'{element}\' found numcode {zh_code} under std={zh_std}')
-                out_str += zh_code 
+                out_str += zh_code + separator
+            # there is not a match within give std
             else: 
+                # try and see if there is a match in the other std
                 if zh_std == 'T': 
-                    pass 
+                    zh_code = char_to_num(element, standard='S', v_mode=v_mode)
+                    if zh_code is not None: out_str += zh_code + separator
+                    else: out_str += '\ufffd'
                 elif zh_std == 'S': 
                     pass 
                 else: 

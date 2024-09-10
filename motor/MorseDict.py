@@ -94,7 +94,7 @@ def latin_to_morse(char, add_break=True) -> str:
                 return f'{morse}/'
             else: 
                 return f'{morse}'
-    return ''
+    return None
 
 """
 Transforms a single character or special code in morse to letter

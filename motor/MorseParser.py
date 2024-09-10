@@ -1,11 +1,11 @@
 import motor.MorseDict as Lookup
 
-def latin_to_morse(input_string, add_slash=True, v_mode=False) -> str: 
-    if v_mode: print(f'MP-L2M: Received \'{input_string}\'')
+def latin_to_morse(input_char, add_slash=True, v_mode=False) -> str: 
+    if v_mode: print(f'MP-L2M: Received \'{input_char}\'')
     output_string = ''
-    for char in input_string: 
-        if add_slash: output_string = output_string + Lookup.latin_to_morse(char, add_break=False) + '/'
-        else: output_string = output_string + Lookup.latin_to_morse(char, add_break=False)
+    if add_slash: output_string = output_string + Lookup.latin_to_morse(input_char, add_break=False) + '/'
+    else: output_string = output_string + Lookup.latin_to_morse(input_char, add_break=False)
+    
     if v_mode: print(f'MP-L2M: Morse found \'{output_string}\'')
     return output_string
 
