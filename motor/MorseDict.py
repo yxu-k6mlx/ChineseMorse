@@ -104,7 +104,7 @@ def morse_to_latin(morse, add_space=False) -> str:
     for latin, target in itu_morse: 
         if morse == target: 
             if add_space: 
-                return f'{latin} '
+                return f'{latin}'
             else: 
                 return latin
     return ''

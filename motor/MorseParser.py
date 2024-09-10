@@ -16,7 +16,7 @@ def morse_to_latin(input_morse, has_brackets=False, v_mode=False) -> str:
     
     for char in input_morse: 
         if v_mode: print(f'MP-M2L: char: {char}')
-        if char == '/': 
+        if char == ' ': 
             codes.append(input_morse[last_slash:read_head])
             
             read_head += 1

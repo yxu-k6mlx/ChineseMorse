@@ -126,11 +126,14 @@ if __name__ == '__main__':
     else: 
         shinter.print_help()
         sys.exit(1)
-    print(f'Translated string:\n轉譯后的字符串:\n{result}')
+    f_result = result 
+    f_result = f_result.replace('\uFFFD', '')
+    f_result = f_result.replace(' } ', ' }')
+    print(f'Translated string:\n轉譯后的字符串:\n{f_result} ')
 
     if app.isReady: 
-        result = result.replace('\uFFFD', '')
-        result = result.replace('{', '')
-        result = result.replace('}', '')
+        result = result.replace(u'\uFFFD', '')
+        result = result.replace(' { ', '')
+        result = result.replace(' } ', '')
         print(f'Ready to Send String:\n{result}')
 
