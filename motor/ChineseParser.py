@@ -51,17 +51,23 @@ def text_to_morse(in_string, standard, v_mode=False, separator=' '):
             # there is a match within given std
             if zh_code is not None: 
                 if v_mode: print(f'CP-T2M: Given hanzi \'{element}\' found numcode {zh_code} under std={zh_std}')
-                out_str += zh_code + separator
+                out_str += text_to_morse(zh_code, standard=standard, v_mode=v_mode) + separator
             # there is not a match within give std
             else: 
                 # try and see if there is a match in the other std
                 if zh_std == 'T': 
                     zh_code = char_to_num(element, standard='S', v_mode=v_mode)
-                    if zh_code is not None: out_str += text_to_morse(zh_code, standard=None, v_mode=v_mode) + separator
+                    if zh_code is not None: 
+                        zh_morse = text_to_morse(zh_code, standard='S', v_mode=v_mode) + separator
+                        out_str += zh_morse
+                        if v_mode: print(f'CP-T2M: {zh_code} -> {zh_morse}')
                     else: out_str += '\ufffd'
                 elif zh_std == 'S': 
                     zh_code = char_to_num(element, standard='T', v_mode=v_mode)
-                    if zh_code is not None: out_str += text_to_morse(zh_code, standard=None, v_mode=v_mode) + separator
+                    if zh_code is not None: 
+                        zh_morse = text_to_morse(zh_code, standard='T', v_mode=v_mode) + separator
+                        out_str += zh_morse
+                        if v_mode: print(f'CP-T2M: {zh_code} -> {zh_morse}')
                     else: out_str += '\ufffd'
                 else: 
                     if v_mode: print(f'CP-T2M: {element} is not a known Hanzi nor valid ASCII for Morse!')
