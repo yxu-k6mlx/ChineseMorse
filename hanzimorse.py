@@ -118,20 +118,24 @@ if __name__ == '__main__':
         inputstr = app.input_string[0]
         if app.verbose: print(f'T2M Your input: {inputstr}, standard {app.standard[0]}')
         result = Parser.text_to_morse(inputstr, standard=app.standard[0], v_mode=app.verbose)
+        f_result = result 
+        f_result = f_result.replace('\uFFFD', '')
+        f_result = f_result.replace(' } ', ' }')
+        print(f'Translated string:\n轉譯后的字符串:\n{color.ANSI_RESET}\033[1m{color.set_color_by_rgb('bg', 255, 121, 0)}{color.set_color_by_rgb('fg', 0, 0, 0)}\'{f_result}\'{color.ANSI_RESET}')
+        verified = False 
+        v_result = Parser.morse_to_text(f_result, v_mode=app.verbose)
+        print(f'↑ Morse back to text: {v_result}')
 
     # Morse -> Text
     elif app.input_morse and not app.input_string: 
         inputmorse = app.input_morse[0]
         if app.verbose: print(f'M2T Your input: {inputmorse}, standard {app.standard[0]}')
         result = Parser.morse_to_text(inputmorse, standard=app.standard[0], v_mode=app.verbose, disp_telecode=app.verbose)
+        print(f'Translated string:\n轉譯后的字符串:\n{color.ANSI_RESET}\033[1m{color.set_color_by_rgb('bg', 255, 121, 0)}{color.set_color_by_rgb('fg', 0, 0, 0)}\'{result}\'{color.ANSI_RESET}')
+
     else: 
         shinter.print_help()
         sys.exit(1)
-    
-    f_result = result 
-    f_result = f_result.replace('\uFFFD', '')
-    f_result = f_result.replace(' } ', ' }')
-    print(f'Translated string:\n轉譯后的字符串:\n{color.ANSI_RESET}\033[1m{color.set_color_by_rgb('bg', 255, 121, 0)}{color.set_color_by_rgb('fg', 0, 0, 0)}\'{f_result}\'{color.ANSI_RESET}')
 
     if app.isReady: 
         result = result.replace(u'\uFFFD', '')
