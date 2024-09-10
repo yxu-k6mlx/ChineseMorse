@@ -64,8 +64,8 @@ itu_morse = [
     ('<START>', '-.-.-'), 
     ('\n', ''), 
     # Space
-    ('<', '<'), 
-    ('>', '>'), 
+    ('{', '{'), 
+    ('}', '}'), 
     (' ', '_'), 
     # Non-ITU but acceptable
     ('!', '-.-.--')
@@ -94,7 +94,7 @@ def latin_to_morse(char, add_break=True) -> str:
                 return f'{morse}/'
             else: 
                 return f'{morse}'
-    return ''
+    return None
 
 """
 Transforms a single character or special code in morse to letter
@@ -104,7 +104,7 @@ def morse_to_latin(morse, add_space=False) -> str:
     for latin, target in itu_morse: 
         if morse == target: 
             if add_space: 
-                return f'{latin} '
+                return f'{latin}'
             else: 
                 return latin
     return ''

@@ -1,10 +1,9 @@
 import motor.MorseDict as Lookup
 
-def latin_to_morse(input_string, add_slash=True, v_mode=False) -> str: 
-    if v_mode: print(f'MP-L2M: Received \'{input_string}\'')
-    output_string = ''
-    for char in input_string: 
-        output_string = output_string + Lookup.latin_to_morse(char, add_break=False) + '/'
+def latin_to_morse(input_char, add_slash=True, v_mode=False) -> str: 
+    if v_mode: print(f'MP-L2M: Received \'{input_char}\'')
+    if add_slash: output_string = Lookup.latin_to_morse(input_char, add_break=False) + '/'
+    else: output_string = Lookup.latin_to_morse(input_char, add_break=False)
     if v_mode: print(f'MP-L2M: Morse found \'{output_string}\'')
     return output_string
 
@@ -17,7 +16,7 @@ def morse_to_latin(input_morse, has_brackets=False, v_mode=False) -> str:
     
     for char in input_morse: 
         if v_mode: print(f'MP-M2L: char: {char}')
-        if char == '/': 
+        if char == ' ': 
             codes.append(input_morse[last_slash:read_head])
             
             read_head += 1
