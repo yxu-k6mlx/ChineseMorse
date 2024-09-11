@@ -1,27 +1,30 @@
 import tkinter as tk
+from parts.SqButton import SqButton
 
-class Bar(tk.Frame): 
-    def __init__(self, root, top_buttons, bottom_buttons): 
-        self.tk = root 
-        self._w = tk.Canvas(self, bg='red', width=1600, height=200)
-        self.top_buttons = top_buttons
-        self.bottom_buttons = bottom_buttons
+class ButtonBar(tk.Frame): 
+    def __init__(self, root, width=1200, height=100): 
+        tk.Frame.__init__(self, root, width=width, height=height) 
 
-    def display_buttons(self, v): 
-        if v: print(f'2-row bar: display buttons called')
-        for col in range (0, len(self.top_buttons)): 
-            self.top_buttons[col].grid(column=col, row=0)
-            self.bottom_buttons[col].grid(column=col, row=1)
+        self.text_labels = [
+            'Button\n1',
+            'Button\n2', 
+            'Button\n3', 
+            'Button\n4', 
+            'Button\n5', 
+            'Button\n6', 
+            'Button\n7', 
+            'Button\n8'
+        ]
+
+        for i in range(0, 8): 
+            self.sq_btn = SqButton(root, self, text=self.text_labels[i])
+            self.sq_btn.set_display(i, 0)
+
+        return None 
     
-class Bar(tk.Frame): 
-    def __init__(self, root, buttons): 
-        self.tk = root 
-        self._w = tk.Canvas(self, bg='red', width=1600, height=200)
-        self.buttons = buttons 
-    
-    def display_buttons(self, v): 
-        if v: print(f'1-row bar: display buttons called')
-        for col in range (0, len(self.buttons)): 
-            self.buttons[col].grid(column=col)
+if __name__ == '__main__': 
+    root = tk.Tk() 
+    bb = ButtonBar(root)
+    bb.grid(column=0, row=0)
 
-
+    tk.mainloop()
