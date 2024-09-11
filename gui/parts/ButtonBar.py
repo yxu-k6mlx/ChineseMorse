@@ -1,5 +1,5 @@
 import tkinter as tk
-from SqButton import SqButton
+from parts.SqButton import SqButton
 
 class ButtonBar(tk.Frame): 
     def __init__(self, root, width=1200, height=100): 
