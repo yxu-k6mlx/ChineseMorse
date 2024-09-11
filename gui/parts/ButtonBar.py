@@ -1,8 +1,8 @@
 import tkinter as tk
-from ChineseMorse.gui.parts.SqButton import SqButton
+from SqButton import SqButton
 
 class ButtonBar(tk.Frame): 
-    def __init__(self, root, width=1600, height=100): 
+    def __init__(self, root, width=1200, height=100): 
         tk.Frame.__init__(self, root, width=width, height=height) 
 
         self.text_labels = [
@@ -18,7 +18,6 @@ class ButtonBar(tk.Frame):
 
         for i in range(0, 8): 
             self.sq_btn = SqButton(root, self, text=self.text_labels[i])
-            print(f'i={i}; txt={self.text_labels[i]}')
             self.sq_btn.set_display(i, 0)
 
         return None 

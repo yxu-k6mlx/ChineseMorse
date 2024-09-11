@@ -2,8 +2,8 @@ import tkinter as tk
 
 class SqButton(tk.Frame): 
     def __init__(
-        self, root, frame, width=190, height=80, text='Default\nTest', 
-        btn_fg='#f0f0f0', btn_bg='#006747', active_btn_fg='#f0f0f0', active_btn_bg='#da291c'): 
+        self, root, frame, width=150, height=100, text='Default\nTest', 
+        btn_fg='#000000', btn_bg='#006747', active_btn_fg='#f0f0f0', active_btn_bg='#da291c'): 
         tk.Frame.__init__(self, root, width=width, height=height) 
         
         self.btn_frame = frame
