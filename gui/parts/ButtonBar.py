@@ -1,5 +1,5 @@
 import tkinter as tk
-from SqButton import SqButton
+from ChineseMorse.gui.parts.ControlButton import SqButton
 
 class ButtonBar(tk.Frame): 
     def __init__(self, root, width=1600, height=100): 
