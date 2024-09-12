@@ -22,6 +22,8 @@ class MainWindow(tk.Frame):
 if __name__ == '__main__': 
     root = tk.Tk()
     root.geometry('1200x700')
+
+    root.title('Chinese Morse Tool')
     main_window = MainWindow(root)
     main_window.place(x=0, y=0)
 
