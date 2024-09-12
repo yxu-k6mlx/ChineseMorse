@@ -21,7 +21,7 @@ class SqButton(tk.Frame):
             font=('Noto Sans SemiBold', 20)
         )
         
-        return None 
+        return None
     
     def set_display(self, col, row): 
         self.btn_frame.grid(column=0, row=0)
@@ -31,5 +31,11 @@ class SqButton(tk.Frame):
 
         self.btn.grid(column=col, row=row)
         self.btn.grid(sticky='eswn')
-        return None 
+        return True
     
+    def set_cmd(self, cmd): 
+        self.btn.configure(command=cmd)
+        return True
+    
+    def get_self(self): 
+        return self

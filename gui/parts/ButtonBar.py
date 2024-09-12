@@ -16,10 +16,13 @@ class ButtonBar(tk.Frame):
             'Button\n8'
         ]
 
-        for i in range(0, 8): 
-            self.sq_btn = SqButton(root, self, text=self.text_labels[i])
-            self.sq_btn.set_display(i, 0)
+        self.buttons = [None]*8
 
+        for i in range(0, 8): 
+            self.btn = SqButton(root, self, text=self.text_labels[i])
+            self.buttons[i] = self.btn.get_self()
+            self.buttons[i].set_display(i, 0)
+            self.btn = None 
         return None 
     
 if __name__ == '__main__': 
