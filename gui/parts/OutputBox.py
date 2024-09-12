@@ -1,21 +1,41 @@
 import tkinter as tk 
+import tkinter.scrolledtext as st
 
 class OutputBox(tk.Frame): 
     def __init__(self, root, width=1200, height=300): 
-        tk.Frame.__init__(self, root, width=0, height=0) 
+        tk.Frame.__init__(self, root, width=width, height=height) 
 
-        self.frame = tk.Canvas(self, width=width, height=height, background='#e57200')
+        self.frame = tk.Frame(
+            self, 
+            width=width, height=height, 
+            background='#e57200'
+        )
+        
+        self.obox = tk.Text(
+            self.frame, 
+            width=0, height=0, 
+            #text='Placeholder Text', 
+            background='#e57200', 
+            foreground='black', 
+            font=('Noto Sans SemiBold', 20), 
+            #justify='left', 
+            #anchor='nw', 
+            padx=5, pady=5, 
+            highlightbackground='black',
+            highlightthickness=2
+        )
+
         self.frame.grid(column=0, row=0)
         self.frame.grid_propagate(False)
-        self.frame.rowconfigure(0, weight=1)
         self.frame.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
 
-        self.outbox = tk.Label(self, width=0, height=0, fg='black', bg='#e57200', justify='left', anchor='nw')
-        self.outbox.place(x=2, y=2)
-        
-        return None 
-    
-    def set_text(self, input='Sample Text\nSample Line 2\n非ASCII字符測試\n{.....}'): 
-        self.outbox.configure(text=input, font=('Noto Sans SemiBold', 20))
+        self.obox.grid(column=0, row=0)
+        self.obox.grid(sticky='eswn')
 
-        return None 
+        return None
+
+    def set_text(self, input='TEXT\nTEXT 2\n3\n4\n5\n6\n7\n8'): 
+        #self.obox.configure(text=input)
+        self.obox.insert(1.0, input)
+        return True
