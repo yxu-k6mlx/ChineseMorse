@@ -1,6 +1,12 @@
 import argparse
 import sys 
-from motor import ChineseParser as Parser
+
+import motor.ChineseParser as Parser
+import motor.GuiDriver as Driver
+
+import tkinter as tk
+
+from gui.gui import MainWindow as mw
 
 class ColorHelper: 
     ANSI_RESET = '\033[0m'
@@ -108,10 +114,27 @@ if __name__ == '__main__':
             use this option if you want the output string formatted for {color.ANSI_RESET}\n\
             {color.set_color_by_rgb('fg', 0, 255, 255)}https://morsecode.world/international/translator.html{color.ANSI_RESET}'
     )
+    
+    shinter.add_argument(
+        '-g', 
+        '--gui', 
+        action='store_true', 
+        dest='use_gui', 
+        help=f'{color.set_color_by_rgb('fg', 255, 255, 0)}\
+            (Dev) Use GUI{color.ANSI_RESET}\n'
+    )
 
     app = shinter.parse_args()
     inputstr = u''
     inputmorse = u''
+
+    if app.use_gui: 
+        root = tk.Tk()
+        MainWindow = mw(root,gui_cmds=Driver.get_cmds())
+        MainWindow.place(x=2,y=2)
+        root.geometry('1204x704')
+        root.title('Chinese Morse Tool')
+        root.mainloop()
 
     # Text -> Morse
     if app.input_string and not app.input_morse: 
@@ -124,7 +147,7 @@ if __name__ == '__main__':
         print(f'Translated string:\n轉譯后的字符串:\n{color.ANSI_RESET}\033[1m{color.set_color_by_rgb('bg', 255, 121, 0)}{color.set_color_by_rgb('fg', 0, 0, 0)}\'{f_result}\'{color.ANSI_RESET}')
         verified = False 
         v_result = Parser.morse_to_text(f_result, v_mode=app.verbose)
-        print(f'↑ Morse back to text: {v_result}')
+        print(f'Morse back to text: {v_result}')
 
     # Morse -> Text
     elif app.input_morse and not app.input_string: 

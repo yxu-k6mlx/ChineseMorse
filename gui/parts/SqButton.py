@@ -36,6 +36,4 @@ class SqButton(tk.Frame):
     def set_cmd(self, cmd): 
         self.btn.configure(command=cmd)
         return True
-    
-    def get_self(self): 
-        return self
+

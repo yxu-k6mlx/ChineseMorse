@@ -1,11 +1,12 @@
 import tkinter as tk
-from parts.SqButton import SqButton
+from gui.parts.SqButton import SqButton as SqButton
 
 class ButtonBar(tk.Frame): 
-    def __init__(self, root, width=1200, height=100): 
+    def __init__(self, root, width=1200, height=100, btncmds=[None]*4): 
         tk.Frame.__init__(self, root, width=width, height=height) 
 
         self.buttons = [None]*4
+        self.cmds = btncmds
         
         self.buttons[0] = SqButton(
             root, self, text='LOAD INPUT\n載入文字', 
@@ -24,6 +25,7 @@ class ButtonBar(tk.Frame):
             btn_fg='white', width=300)
         
         for i in range (0, len(self.buttons)): 
+            self.buttons[i].set_cmd(self.cmds[i])
             self.buttons[i].set_display(i, 0)
          
 if __name__ == '__main__': 
