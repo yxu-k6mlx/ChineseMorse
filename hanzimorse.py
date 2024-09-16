@@ -1,7 +1,9 @@
 import argparse
 import sys 
+
 import motor.ChineseParser as Parser
 import motor.GuiDriver as Driver
+
 import tkinter as tk
 from gui.gui import MainWindow as mw
 
