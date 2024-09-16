@@ -38,4 +38,5 @@ class OutputBox(tk.Frame):
     def set_text(self, input='GUI TEXT'): 
         #self.obox.configure(text=input)
         self.obox.insert(1.0, input)
+        print(f'outbox {self}')
         return True
