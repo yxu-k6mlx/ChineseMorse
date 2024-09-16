@@ -28,7 +28,7 @@ class SqButton(tk.Frame):
         self.btn_frame.grid_propagate(False)
         self.btn_frame.rowconfigure(row, weight=1)
         self.btn_frame.columnconfigure(col, weight=1)
-
+        
         self.btn.grid(column=col, row=row)
         self.btn.grid(sticky='eswn')
         return True
